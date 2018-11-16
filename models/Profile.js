@@ -16,8 +16,7 @@ const ProfileSchema = new Schema({
     type: Date
   },
   gender: {
-    type: String,
-    required: true
+    type: String
   },
   adress: [
     {
@@ -32,10 +31,15 @@ const ProfileSchema = new Schema({
       }
     }
   ],
+  phone: {
+    type: String,
+    required: true
+  },
   typeOf: {
     type: String,
     required: true,
-    enum: ["Individual", "Company"]
+    enum: ["Individual", "Company"],
+    default: "Individual"
   }
 });
 
