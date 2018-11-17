@@ -3,9 +3,13 @@ const Schema = mongoose.Schema;
 
 //Create Schema
 const ScheduleSchema = new Schema({
-  kindOf: {
-    type: String,
-    required: true
+  sell: {
+    type: Schema.Types.ObjectId,
+    ref: "sell"
+  },
+  buy: {
+    type: Schema.Types.ObjectId,
+    ref: "buy"
   },
   from: {
     type: Date,
@@ -16,4 +20,4 @@ const ScheduleSchema = new Schema({
     required: true
   }
 });
-module.exports = Schedule = mongoose.model("users", ScheduleSchema);
+module.exports = Schedule = mongoose.model("schedule", ScheduleSchema);

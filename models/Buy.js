@@ -7,7 +7,25 @@ const BuySchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "users"
   },
-  moTa: [
+  hinhThuc: {
+    type: String,
+    required: true,
+    enum: ["sell", "rent"],
+    default: "sell"
+  },
+  loai: {
+    type: String,
+    required: true
+  },
+  diachi: {
+    type: String,
+    required: true
+  },
+  dienTich: {
+    type: String,
+    required: true
+  },
+  chiTiet: [
     {
       title: {
         type: String,
@@ -19,32 +37,6 @@ const BuySchema = new Schema({
       }
     }
   ],
-  hinhThuc: {
-    type: String,
-    required: true,
-    enum: ["sell", "rent"]
-  },
-  loai: {
-    type: String,
-    required: true
-  },
-  tinh: {
-    type: String,
-    required: true
-  },
-  quan: {
-    type: String,
-    required: true
-  },
-  phuong: {
-    type: String
-  },
-  pho: {
-    type: String
-  },
-  dienTich: {
-    type: String
-  },
   gia: [
     {
       from: {

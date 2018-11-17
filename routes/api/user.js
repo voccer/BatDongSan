@@ -42,7 +42,7 @@ router.post("/register", (req, res, next) => {
       });
 
       const newUser = new User({
-        name: req.body.name,
+        fullname: req.body.fullname,
         email: req.body.email,
         avatar,
         password: req.body.password
@@ -84,7 +84,11 @@ router.post("/login", (req, res, next) => {
       errors.password = "Password incorrect!";
       if (err) return res.status(400).json({ errors });
       //User matched
-      const payload = { id: user.id, name: user.name, avatar: user.avatar }; // Create JWT Payload
+      const payload = {
+        id: user.id,
+        fullname: user.fullname,
+        avatar: user.avatar
+      }; // Create JWT Payload
       // Sign Token
       jwt.sign(payload, keys.secretOfKey, { expiresIn: 3600 }, (err, token) => {
         res.json({
@@ -105,7 +109,7 @@ router.get(
   (req, res) => {
     res.json({
       id: req.user._id,
-      name: req.user.name,
+      fullname: req.user.fullname,
       email: req.user.email
     });
   }

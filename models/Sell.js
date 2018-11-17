@@ -16,29 +16,13 @@ const SellSchema = new Schema({
     type: String,
     required: true
   },
-  tinh: {
+  diachi: {
     type: String,
     required: true
-  },
-  quan: {
-    type: String,
-    required: true
-  },
-  phuong: {
-    type: String
-  },
-  pho: {
-    type: String
   },
   dienTich: {
-    type: String
-  },
-  gia: {
-    type: Number,
+    type: String,
     required: true
-  },
-  moTa: {
-    type: String
   },
   chiTiet: [
     {
@@ -55,19 +39,23 @@ const SellSchema = new Schema({
         type: String
       },
       soTang: {
-        type: String
+        type: Number
       },
       soPhongNgu: {
-        type: String
+        type: Number
       },
       soToilet: {
-        type: String
+        type: Number
       },
       noiThat: {
         type: String
       }
     }
   ],
+  gia: {
+    type: Number,
+    required: true
+  },
   hinhAnh1: { type: String },
   hinhAnh2: { type: String },
   hinhAnh3: { type: String }

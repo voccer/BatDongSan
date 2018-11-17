@@ -7,11 +7,6 @@ const ProfileSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "users"
   },
-  fullname: {
-    type: String,
-    required: true,
-    max: 40
-  },
   dateOfBirth: {
     type: Date
   },
@@ -33,7 +28,9 @@ const ProfileSchema = new Schema({
   ],
   phone: {
     type: String,
-    required: true
+    required: true,
+    minlength: 10,
+    maxlength: 11
   },
   typeOf: {
     type: String,

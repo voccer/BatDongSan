@@ -9,4 +9,4 @@ const AdressSchema = new Schema({
     }
   ]
 });
-module.exports = User = mongoose.model("adress", UserSchema);
+module.exports = User = mongoose.model("adress", AdressSchema);

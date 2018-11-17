@@ -5,6 +5,7 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const passport = require("passport");
 //Routers
 var indexRouter = require("./routes/index");
 var userRouter = require("./routes/api/user");
@@ -27,7 +28,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
-
+//Passport middleware
+app.use(passport.initialize());
+//Passport Config
+require("./config/passport")(passport);
 //config Routers
 app.use("/", indexRouter);
 app.use("/api/users", userRouter);
