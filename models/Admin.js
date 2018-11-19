@@ -17,10 +17,6 @@ const AdminSchema = new Schema({
   },
   avatar: {
     type: String
-  },
-  isAdmin: {
-    type: Boolean,
-    default: true
   }
 });
-module.exports = Admin = mongoose.model("admins", AdminSchema);
+module.exports = User = mongoose.model("admins", AdminSchema);

@@ -21,7 +21,7 @@ const SellSchema = new Schema({
     required: true
   },
   dienTich: {
-    type: String,
+    type: Number,
     required: true
   },
   chiTiet: [
@@ -39,25 +39,36 @@ const SellSchema = new Schema({
         type: String
       },
       soTang: {
-        type: Number
+        type: Number,
+        default: 0
       },
       soPhongNgu: {
-        type: Number
+        type: Number,
+        default: 0
       },
       soToilet: {
-        type: Number
+        type: Number,
+        default: 0
       },
       noiThat: {
         type: String
       }
     }
   ],
+  moTa: {
+    type: String
+  },
   gia: {
     type: Number,
-    required: true
+    required: true,
+    default: 0
   },
-  hinhAnh1: { type: String },
-  hinhAnh2: { type: String },
-  hinhAnh3: { type: String }
+  imageURL: [
+    {
+      image: {
+        type: String
+      }
+    }
+  ]
 });
-module.exports = mongoose.model("sell", SellSchema);
+module.exports = mongoose.model("sells", SellSchema);

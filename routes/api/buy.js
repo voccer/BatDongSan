@@ -21,9 +21,9 @@ router.get("/", (req, res, next) => {
   Buy.find()
     .sort({ date: -1 })
     .then(buy => {
-      if (buy.length === 0) {
-        res.status(404).json({ noBuyPost: "No buy posts found." });
-      }
+      // if (buy.length === 0) {
+      //   res.status(404).json({ noBuyPost: "No buy posts found." });
+      // }
       res.json(buy);
     })
     .catch(err => res.status(404).json({ noBuyFounds: "No buy posts found." }));

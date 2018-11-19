@@ -9,6 +9,7 @@ const passport = require("passport");
 const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
 
+// Load User model
 const User = require("../../models/User");
 //@route  GET api/users/
 //@desc   Test users route
@@ -42,7 +43,7 @@ router.post("/register", (req, res, next) => {
       });
 
       const newUser = new User({
-        fullname: req.body.fullname,
+        name: req.body.name,
         email: req.body.email,
         avatar,
         password: req.body.password
@@ -79,23 +80,28 @@ router.post("/login", (req, res, next) => {
       errors.email = "Email not found!";
       return res.status(404).json({ errors });
     }
-    //Check password
-    bcrypt.compare(password, user.password, (err, same) => {
-      errors.password = "Password incorrect!";
-      if (err) return res.status(400).json({ errors });
-      //User matched
-      const payload = {
-        id: user.id,
-        fullname: user.fullname,
-        avatar: user.avatar
-      }; // Create JWT Payload
-      // Sign Token
-      jwt.sign(payload, keys.secretOfKey, { expiresIn: 3600 }, (err, token) => {
-        res.json({
-          success: true,
-          token: "Bearer " + token
-        });
-      }); //exprires token
+    // Check Password
+    bcrypt.compare(password, user.password).then(isMatch => {
+      if (isMatch) {
+        // User Matched
+        const payload = { id: user.id, name: user.name, avatar: user.avatar }; // Create JWT Payload
+
+        // Sign Token
+        jwt.sign(
+          payload,
+          keys.secretOfKey,
+          { expiresIn: 3600 },
+          (err, token) => {
+            res.json({
+              success: true,
+              token: "Bearer " + token
+            });
+          }
+        );
+      } else {
+        errors.password = "Password incorrect";
+        return res.status(400).json(errors);
+      }
     });
   });
 });
@@ -109,7 +115,7 @@ router.get(
   (req, res) => {
     res.json({
       id: req.user._id,
-      fullname: req.user.fullname,
+      name: req.user.name,
       email: req.user.email
     });
   }
