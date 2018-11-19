@@ -10,8 +10,7 @@ const BuySchema = new Schema({
   hinhThuc: {
     type: String,
     required: true,
-    enum: ["sell", "rent"],
-    default: "sell"
+    enum: ["sell", "rent"]
   },
   loai: {
     type: String,
@@ -40,10 +39,12 @@ const BuySchema = new Schema({
   gia: [
     {
       from: {
-        type: Number
+        type: Number,
+        default: 0
       },
       to: {
-        type: Number
+        type: Number,
+        default: 0
       }
     }
   ]

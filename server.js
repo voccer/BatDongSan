@@ -11,7 +11,7 @@ var indexRouter = require("./routes/index");
 var userRouter = require("./routes/api/user");
 var profileRouter = require("./routes/api/profile");
 var adminRouter = require("./routes/admin/admin");
-var sellRouter = require("./routes/api/sell");
+// var sellRouter = require("./routes/api/sell");
 var buyRouter = require("./routes/api/buy");
 
 var app = express();
@@ -36,8 +36,8 @@ require("./config/passport")(passport);
 app.use("/", indexRouter);
 app.use("/api/users", userRouter);
 app.use("/api/profiles", profileRouter);
-app.use("/api/sell", sellRouter);
-app.use("/api/buy", buyRouter);
+// app.use("/api/sells", sellRouter);
+app.use("/api/buys", buyRouter);
 app.use("/admin", adminRouter);
 //Database config
 const db = require("./config/database");
