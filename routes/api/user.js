@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var gravatar = require("gravatar");
-var bcrypt = require("bcrypt");
+var bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const keys = require("../../config/database");
 const passport = require("passport");
@@ -80,28 +80,25 @@ router.post("/login", (req, res, next) => {
       errors.email = "Email not found!";
       return res.status(404).json({ errors });
     }
-    // Check Password
-    bcrypt.compare(password, user.password).then(isMatch => {
-      if (isMatch) {
-        // User Matched
-        const payload = { id: user.id, name: user.name, avatar: user.avatar }; // Create JWT Payload
-
-        // Sign Token
-        jwt.sign(
-          payload,
-          keys.secretOfKey,
-          { expiresIn: 3600 },
-          (err, token) => {
-            res.json({
-              success: true,
-              token: "Bearer " + token
-            });
-          }
-        );
-      } else {
-        errors.password = "Password incorrect";
-        return res.status(400).json(errors);
+    //Check password
+    bcrypt.compare(password, user.password, (err, same) => {
+      if (err) {
+        errors.password = "Some Errors!";
+        return res.status(404).json({ errors });
       }
+      if (!same) {
+        errors.password = "Password incorrect!";
+        return res.status(400).json({ errors });
+      }
+      //User matched
+      const payload = { id: user.id, name: user.name, avatar: user.avatar }; // Create JWT Payload
+      // Sign Token
+      jwt.sign(payload, keys.secretOfKey, { expiresIn: 3600 }, (err, token) => {
+        res.json({
+          success: true,
+          token: "Bearer " + token
+        });
+      }); //exprires token
     });
   });
 });

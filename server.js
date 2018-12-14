@@ -10,7 +10,6 @@ const passport = require("passport");
 var indexRouter = require("./routes/index");
 var userRouter = require("./routes/api/user");
 var profileRouter = require("./routes/api/profile");
-var adminRouter = require("./routes/admin/admin");
 var sellRouter = require("./routes/api/sell");
 var buyRouter = require("./routes/api/buy");
 
@@ -37,9 +36,7 @@ app.use("/", indexRouter);
 app.use("/api/users", userRouter);
 app.use("/api/profiles", profileRouter);
 app.use("/api/sells", sellRouter);
-app.use("/api/buys", buyRouter);
-app.use("/admin", adminRouter);
-//Database config
+app.use("/api/buys", buyRouter); //Database config
 const db = require("./config/database");
 mongoose
   .connect(
