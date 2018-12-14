@@ -91,13 +91,21 @@ router.post("/login", (req, res, next) => {
         return res.status(400).json({ errors });
       }
       //User matched
-      const payload = { id: user.id, name: user.name, avatar: user.avatar }; // Create JWT Payload
+      const payload = {
+        id: user.id,
+        role: user.role,
+        name: user.name,
+        avatar: user.avatar
+      }; // Create JWT Payload
       // Sign Token
       jwt.sign(payload, keys.secretOfKey, { expiresIn: 3600 }, (err, token) => {
         res.json({
           success: true,
           token: "Bearer " + token
         });
+        var decoded = jwt.decode(token, { complete: true });
+        console.log(decoded.header);
+        console.log(decoded.payload);
       }); //exprires token
     });
   });
@@ -113,7 +121,9 @@ router.get(
     res.json({
       id: req.user._id,
       name: req.user.name,
-      email: req.user.email
+      email: req.user.email,
+      role: req.user.role,
+      avatar: req.user.avatar
     });
   }
 );

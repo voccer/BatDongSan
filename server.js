@@ -38,13 +38,14 @@ app.use("/api/profiles", profileRouter);
 app.use("/api/sells", sellRouter);
 app.use("/api/buys", buyRouter); //Database config
 const db = require("./config/database");
-mongoose
-  .connect(
-    db.mongoURI,
-    { useNewUrlParser: true }
-  )
-  .then(() => console.log("MongoDB connected!"))
-  .catch(err => console.log(err));
+mongoose.connect(
+  db.mongoURI,
+  { useNewUrlParser: true },
+  err =>
+    err
+      ? console.log("Disconnect Database")
+      : console.log("Database connected.")
+);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
@@ -61,4 +62,4 @@ app.use(function(err, req, res, next) {
   res.render("error");
 });
 
-app.listen(3000, () => console.log("Listen!"));
+app.listen(3000, () => console.log("Start on port 3000."));
