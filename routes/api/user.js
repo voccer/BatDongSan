@@ -11,6 +11,9 @@ const validateLoginInput = require("../../validation/login");
 
 // Load User model
 const User = require("../../models/User");
+//middleware
+const testMiddleware = require("../../middlewares/roleMiddleware");
+
 //@route  GET api/users/
 //@desc   Test users route
 //@access Public
@@ -117,6 +120,7 @@ router.post("/login", (req, res, next) => {
 router.get(
   "/current",
   passport.authenticate("jwt", { session: false }),
+  testMiddleware.requiredAuth,
   (req, res) => {
     res.json({
       id: req.user._id,
