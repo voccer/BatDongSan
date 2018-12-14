@@ -1,6 +1,14 @@
 const Role = require("../constants/roleUser");
 module.exports = {
-  requiredAuth: (req, res, next) => {
+  requiredADMIN: (req, res, next) => {
+    const errors = {};
+    if (req.user.role !== Role.REQUIRE_ADMIN) {
+      errors.role = "You are not admin to view this content.";
+      res.status(400).json({ errors });
+    }
+    next();
+  },
+  requiredMEMBER: (req, res, next) => {
     const errors = {};
     console.log("Middleware work!!!");
     console.log({
@@ -10,10 +18,21 @@ module.exports = {
       role: req.user.role,
       avatar: req.user.avatar
     });
-    if (req.user.role !== Role.REQUIRE_ADMIN) {
-      errors.role = "You are not authorized to view this content.";
+    if (req.user.role !== Role.REQUIRE_MEMBER) {
+      errors.role = "You are not member to view this content.";
       res.status(400).json({ errors });
     }
+    next();
+  },
+  requiredOWNER: (req, res, next) => {
+    const errors = {};
+    if (req.user.role !== Role.REQUIRE_OWNER) {
+      errors.role = "You are not owner to view this content.";
+      res.status(400).json({ errors });
+    }
+    next();
+  },
+  requiredCLIENT: (req, res, next) => {
     next();
   }
 };
