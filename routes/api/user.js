@@ -120,7 +120,7 @@ router.post("/login", (req, res, next) => {
 router.get(
   "/current",
   passport.authenticate("jwt", { session: false }),
-  roleMiddleware.requiredADMIN,
+  roleMiddleware.requiredMEMBER,
   (req, res) => {
     res.json({
       id: req.user._id,

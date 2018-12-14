@@ -4,9 +4,9 @@ module.exports = {
     const errors = {};
     if (req.user.role !== Role.REQUIRE_ADMIN) {
       errors.role = "You are not admin to view this content.";
-      res.status(400).json({ errors });
+      return res.status(400).json({ errors });
     }
-    next();
+    return next();
   },
   requiredMEMBER: (req, res, next) => {
     const errors = {};
@@ -20,19 +20,17 @@ module.exports = {
     });
     if (req.user.role !== Role.REQUIRE_MEMBER) {
       errors.role = "You are not member to view this content.";
-      res.status(400).json({ errors });
+      return res.status(400).json({ errors });
     }
-    next();
+    return next();
   },
   requiredOWNER: (req, res, next) => {
     const errors = {};
     if (req.user.role !== Role.REQUIRE_OWNER) {
       errors.role = "You are not owner to view this content.";
-      res.status(400).json({ errors });
+      return res.status(400).json({ errors });
     }
-    next();
+    return next();
   },
-  requiredCLIENT: (req, res, next) => {
-    next();
-  }
+  requiredCLIENT: (req, res, next) => next()
 };
